@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: flask-backend
+    env: docker
+    plan: free
+    autoDeploy: true
+    buildFilter:
+      paths:
+        - flask_backend/**
