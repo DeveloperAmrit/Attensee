@@ -1,0 +1,12 @@
+Flask
+face_recognition
+requests
+numpy
+pymongo
+python-dotenv
+opencv-python
+Werkzeug
+pytz
+imutils
+dlib
+flask-cors
