@@ -1,4 +1,10 @@
-# Project Setup Guide
+# About the Project
+
+**Digital Attendance Management System**  
+This project is a comprehensive platform for managing attendance in educational environments, designed to streamline the process for admins, teachers, and students. The system leverages video-based attendance marking: teachers can upload a classroom video, and the application automatically matches and recognizes student faces using advanced face encoding technology. Only registered students’ faces are matched, ensuring secure and accurate attendance records.
+
+---
+## Project Setup Guide
 
 Welcome! This guide walks you through setting up the project, which consists of a **Node.js/Express backend**, a **React/Vite frontend**, and a **Flask backend** for additional API support.
 
