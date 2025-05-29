@@ -1,4 +1,3 @@
-# requirements.txt
 dlib==19.24.1  # Prebuilt Linux binary
 flask
 face_recognition
