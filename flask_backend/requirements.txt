@@ -1,12 +1,14 @@
-Flask
+# requirements.txt
+dlib==19.24.1  # Prebuilt Linux binary
+flask
 face_recognition
 requests
 numpy
-pymongo
-python-dotenv
+pymongo[srv]
+python-dotenv 
 opencv-python
 Werkzeug
 pytz
 imutils
-dlib
 flask-cors
+gunicorn
