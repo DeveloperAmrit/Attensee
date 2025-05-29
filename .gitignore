@@ -1,6 +1,3 @@
-# data
-
-*.dat
 
 # Node.js / React / Vite
 node_modules/
