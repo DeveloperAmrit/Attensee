@@ -12,7 +12,6 @@ from datetime import datetime
 import pytz
 import re
 import threading
-import time
 import json
 from flask_cors import CORS
 from imutils import face_utils
@@ -284,7 +283,6 @@ def progress(uploadId):
                 if any(m.get('type') == 'completed' for m in tracker['messages']):
                     del progress_trackers[uploadId]
                     break
-            time.sleep(0.5)
 
     return Response(generate(), mimetype='text/event-stream')
 
