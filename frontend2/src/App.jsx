@@ -12,7 +12,6 @@ import AddBySheet from './pages/AddBySheet';
 import { teacherHeaders, teacherSheetApi, studentHeaders, studentSheetApi } from './data/data';
 import Subsection from './pages/Subsection';
 import StudentSubsection from './components/StudentDashboard/StudentSubsection'
-import Footer from './components/shared/Footer';
 
 
 const App = () => {
@@ -50,7 +49,6 @@ const App = () => {
             <Route path='/addStudentsBySheet' element={<AddBySheet headers={studentHeaders} api={studentSheetApi} name="Student" />} />
 
           </Routes>
-          <Footer />
     </Router>
   );
 };
