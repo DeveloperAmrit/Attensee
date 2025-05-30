@@ -4,6 +4,7 @@ import { APIBase, flaskAPIBase } from '../data/data';
 import SuccessMessage from '../components/shared/success';
 import ErrorMessage from '../components/shared/error';
 import { useUserContext } from '../customHooks/UserContext';
+import ManualMarking from '../components/shared/ManualMarking';
 
 const Subsection = () => {
     const { subsectionId } = useParams();
@@ -18,7 +19,8 @@ const Subsection = () => {
     const [uploadMsg, setUploadMsg] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
     const [errorMessage, setErrorMessage] = useState(null);
-    const [showManualMarking, setShowManualMarking] = useState(null);
+    const [showManualMarking, setShowManualMarking] = useState(false);
+    const [uploadId, setUploadId] = useState(false);
     const fileInputRef = useRef();
     const user = useUserContext();
 
@@ -83,7 +85,6 @@ const Subsection = () => {
                 if (!aRes.ok) throw new Error(adata.message || "Failed to fetch attendance");
                 setTotalClasses(adata.totalClasses);
                 setAttendance(adata.attendence);
-
                 setLoading(false);
             } catch (error) {
                 setErr(error.message);
@@ -98,6 +99,7 @@ const Subsection = () => {
         const file = e.target.files[0];
         if (!file || !subsectionId) return;
         const uploadId = crypto.randomUUID();
+        setUploadId(uploadId);
 
         setUploading(true);
         setUploadMsg({ type: "info", text: "Uploading started" });
@@ -135,13 +137,15 @@ const Subsection = () => {
                             title: "Processing Complete",
                             message: data.message
                         });
+                        setShowManualMarking(true);
                     }
                 };
 
                 eventSource.onerror = () => {
-                    setUploadMsg({ type: "error", text: "Connection lost" });
+                    setUploadMsg({ type: "error", text: "Done" });
                     eventSource.close();
                     setUploading(false);
+                    setShowManualMarking(true);
                 };
             }
         };
@@ -153,6 +157,7 @@ const Subsection = () => {
 
         xhr.open('POST', `${flaskAPIBase}/upload_video`);
         xhr.send(formData);
+
 
         if (fileInputRef.current) fileInputRef.current = ""
     };
@@ -192,6 +197,9 @@ const Subsection = () => {
                     onClose={() => setErrorMessage(null)}
                 />
             )}
+            {showManualMarking && 
+                <ManualMarking subsectionId={subsectionId} uploadId={uploadId} onClose={()=>setShowManualMarking(false)} />
+            }
 
             {/* Header Section */}
             <div className="space-y-6">
@@ -337,7 +345,7 @@ const Subsection = () => {
                                                 <td className="px-4 py-3">
                                                     <img src={st.faceimageurl} alt={st.name} className="w-10 h-10 rounded-full object-cover border" />
                                                 </td>
-                                                <td className="px-4 py-3">{attendance[st.rollNumber]}</td>
+                                                <td className="px-4 py-3">{(attendance)? attendance[st.rollNumber] : 0}</td>
                                             </tr>
                                         ))}
                                     </tbody>

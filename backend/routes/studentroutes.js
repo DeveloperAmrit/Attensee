@@ -1,7 +1,7 @@
 const express = require("express");
 const authMiddleware = require("../middleware/authMiddleware");
 const router = express.Router();
-const { handleCreateStudent, handleGetStudent, handleGetAllStudents, handleUploadStudents, handleDeleteStudent, handleGetByRolls, handleGetStudentSections, handleGetAttendance } = require("../controllers/handleStudent");
+const { handleCreateStudent, handleGetStudent, handleGetAllStudents, handleUploadStudents, handleDeleteStudent, handleGetByRolls, handleGetStudentSections, handleGetAttendance, handleGetAllRolls } = require("../controllers/handleStudent");
 
 router.post("/createStudent", authMiddleware(['admin']), handleCreateStudent);
 router.get("/getStudent", authMiddleware(), handleGetStudent)

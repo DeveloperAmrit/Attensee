@@ -146,10 +146,76 @@ async function handleGetAttendance(req, res) {
     }
 }
 
+
+async function handleGetAllRolls(req, res) {
+    console.log("handleGetAllRolls called")
+    const { subsectionId } = req.body;
+    if (!subsectionId) {
+        return res.status(400).json({ message: "subsectionId is required", isSuccess: false });
+    }
+    try {
+        // Find the subsection
+        const subsection = await SubSection.findOne({ subsectionId });
+        if (!subsection) {
+            return res.status(404).json({ message: "Subsection not found", isSuccess: false });
+        }
+        // Return the studentRolls array
+        res.status(200).json({ rolls: subsection.studentRolls, isSuccess: true });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Error fetching rolls", isSuccess: false });
+    }
+}
+
+async function handleGetPresentStudentsByUploadId(req,res){
+    console.log("handleGetPresentStudentsByUploadId called")
+    const {uploadId} = req.body;
+    try {
+        const upload = await Upload.findOne({ uploadId });
+        if (!upload) {
+            return res.status(404).json({ message: "Upload not found", isSuccess: false });
+        }
+        // Return the studentRolls array
+        res.status(200).json({ presentStudents: upload.presentStudents, isSuccess: true });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Error fetching present rolls", isSuccess: false });
+    }
+}
+
+async function handleUpdateAttendence(req, res) {
+    console.log("handleUpdateAttendence called")
+    const { presentStudents, uploadId } = req.body;
+
+    if (!uploadId || !Array.isArray(presentStudents)) {
+        return res.status(400).json({ message: "uploadId and presentStudents array are required", isSuccess: false });
+    }
+
+    try {
+        const upload = await Upload.findOne({ uploadId });
+        if (!upload) {
+            return res.status(404).json({ message: "Upload not found", isSuccess: false });
+        }
+
+        upload.presentStudents = presentStudents;
+        await upload.save();
+
+        res.status(200).json({ message: "Attendance updated successfully", isSuccess: true, presentStudents: upload.presentStudents });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Error updating attendance", isSuccess: false });
+    }
+}
+
+
+
 module.exports = {
     handleCreateSubSection,
     handleGetSubSection,
     handleAddTeachersToSubSection,
     handleAddStudentsToSubSection,
-    handleGetAttendance
+    handleGetAttendance,
+    handleGetAllRolls,
+    handleGetPresentStudentsByUploadId,
+    handleUpdateAttendence
 };

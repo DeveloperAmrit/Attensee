@@ -16,6 +16,7 @@ import json
 from flask_cors import CORS
 from imutils import face_utils
 import dlib
+import time
 
 
 app = Flask(__name__)
@@ -271,6 +272,7 @@ def progress(uploadId):
                 while tracker['messages']:
                     msg = tracker['messages'].pop(0)
                     yield f"data: {json.dumps(msg)}\n\n"
+                    time.sleep(0.05)
                 
                 # Add progress percentage calculation
                 total_frames = tracker['stages']['frame_processing']['total']

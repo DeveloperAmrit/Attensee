@@ -6,6 +6,7 @@ const crypto = require('crypto');
 const axios = require('axios');
 const { validateImageUrl } = require('../utils/validateURL.js');
 const Upload = require('../schema/Upload.js');
+const SubSection = require('../schema/SubSection.js');
 
 async function handleCreateStudent(req, res) {
     const { userId, name, email, department, year, faceimageurl, admissionYear, rollNumber, username, password } = req.body;
@@ -287,5 +288,4 @@ async function handleGetAttendance(req, res) {
         res.status(500).json({ message: "Error fetching attendance" });
     }
 }
-
 module.exports = { handleCreateStudent, handleGetStudent, handleGetAllStudents, handleUploadStudents, handleDeleteStudent, handleGetByRolls, handleGetStudentSections, handleGetAttendance };
