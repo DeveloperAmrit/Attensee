@@ -2,12 +2,11 @@ Flask
 face_recognition
 requests
 numpy
-pymongo[srv]
+pymongo
 python-dotenv
 opencv-python
 Werkzeug
 pytz
 imutils
-dlib==19.24.1
+dlib
 flask-cors
-gunicorn
