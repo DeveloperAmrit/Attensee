@@ -18,6 +18,7 @@ const Subsection = () => {
     const [uploadMsg, setUploadMsg] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
     const [errorMessage, setErrorMessage] = useState(null);
+    const [showManualMarking, setShowManualMarking] = useState(null);
     const fileInputRef = useRef();
     const user = useUserContext();
 
