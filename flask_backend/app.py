@@ -131,7 +131,7 @@ def upload_video():
 
 
 detector = dlib.get_frontal_face_detector()
-predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")  # Download required
+predictor = dlib.shape_predictor(r"D:\work_\websites_\Attensee\flask_backend\shape_predictor_68_face_landmarks.dat")  # Download required
 
 def eye_aspect_ratio(eye):
     A = np.linalg.norm(eye[1] - eye[5])
